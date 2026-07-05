@@ -6,7 +6,15 @@
   "type": "commonjs",
   "scripts": {
     "validate": "node scripts/validate.js",
-    "serve": "npx --yes http-server -p 8080 -c-1 ."
+    "serve": "npx --yes http-server -p 8080 -c-1 .",
+    "generate:sfp": "node generators/sfp-activity-stack.js",
+    "sweep": "node sweep/sweep.js",
+    "snapshot": "node scripts/snapshot.js",
+    "audit": "node scripts/audit.js",
+    "test": "node --test"
   },
-  "license": "UNLICENSED"
+  "license": "UNLICENSED",
+  "dependencies": {
+    "exceljs": "^4.4.0"
+  }
 }

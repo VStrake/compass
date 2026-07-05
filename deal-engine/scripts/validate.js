@@ -32,7 +32,7 @@ const STAGES = [
 ];
 const STAGE_RANK = Object.fromEntries(STAGES.map((s, i) => [s, i]));
 const BALLS = ["us", "tenant", "attorney", "owner"];
-const LOG_SOURCES = ["email", "manual", "system"];
+const LOG_SOURCES = ["email", "manual", "system", "vts"];
 
 const STALE_BALL_DAYS = 3;
 
@@ -187,6 +187,11 @@ function validateDeal(deal, index) {
       }
       if (!isString(entry.source) || !LOG_SOURCES.includes(entry.source)) {
         err(id, `log[${i}].source must be one of: ${LOG_SOURCES.join(", ")}`);
+      }
+      // source_id is optional, but when present (sweep-written entries) it
+      // must be a non-empty string so the entry can cite its source email.
+      if ("source_id" in entry && !isString(entry.source_id)) {
+        err(id, `log[${i}].source_id must be a non-empty string when present`);
       }
     });
   }

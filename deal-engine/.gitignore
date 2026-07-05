@@ -3,3 +3,10 @@ node_modules/
 .DS_Store
 .env
 .env.local
+
+# Runtime outputs. The stack in data/ is the source of truth; these are
+# generated per run and should not be committed.
+archive/
+exports/
+sweep/questions.json
+sweep/summary.md

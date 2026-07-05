@@ -1,0 +1,56 @@
+[
+  {
+    "id": "AAA1",
+    "from": "jordan.kim@savills.com",
+    "to": "vince.strake@partnersrealestate.com",
+    "subject": "RE: San Felipe Plaza Suite 1800 proposal",
+    "date": "2026-07-06",
+    "bodyPreview": "Vince, attached is our counter on Suite 1800. Client is pushing for 9 months free and $70 TI. Let me know.",
+    "attachments": ["SFP-1800-counter-v2.pdf"]
+  },
+  {
+    "id": "BBB2",
+    "from": "no-reply@viewthespace.com",
+    "to": "vince.strake@partnersrealestate.com",
+    "subject": "Tour activity: Bayou Place Suite G10",
+    "date": "2026-07-06",
+    "bodyPreview": "A tour of Bayou Place Suite G10 was logged by Marcus Reed.",
+    "attachments": []
+  },
+  {
+    "id": "CCC3",
+    "from": "counsel@wedgeprops.com",
+    "to": "vince.strake@partnersrealestate.com",
+    "subject": "RE: 1415 Louisiana 22nd floor availability",
+    "date": "2026-07-07",
+    "bodyPreview": "Attached is the fully executed lease for the 22nd floor. Fully executed by both parties. Congratulations.",
+    "attachments": ["1415-Louisiana-executed.pdf"]
+  },
+  {
+    "id": "DDD4",
+    "from": "broker@leaseco.com",
+    "to": "vince.strake@partnersrealestate.com",
+    "subject": "New requirement - 18,000 SF at Jones on Main",
+    "date": "2026-07-06",
+    "bodyPreview": "Client has a requirement for roughly 18,000 SF and would like to tour Jones on Main. New prospect, can you send availability?",
+    "attachments": []
+  },
+  {
+    "id": "EEE5",
+    "from": "someone@unknown-domain.com",
+    "to": "vince.strake@partnersrealestate.com",
+    "subject": "Quick question",
+    "date": "2026-07-06",
+    "bodyPreview": "Are you around for a quick call Thursday afternoon?",
+    "attachments": []
+  },
+  {
+    "id": "FFF6",
+    "from": "agent@transwestern.com",
+    "to": "vince.strake@partnersrealestate.com",
+    "subject": "RE: 15600 JFK Suite 200 tour request - confirmed for 07/12/26",
+    "date": "2026-07-06",
+    "bodyPreview": "Confirming the tour of 15600 JFK Suite 200 on 07/12/26 at 10am. Thanks.",
+    "attachments": []
+  }
+]
