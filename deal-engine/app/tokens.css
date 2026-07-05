@@ -1,0 +1,97 @@
+/*
+ * Brand tokens. This is the file to swap.
+ *
+ * No brand tokens file was found at ~/Partners/brand/ when this was built,
+ * so these are the Partners Real Estate palette values as placeholders.
+ * Replace the values below with the real tokens and nothing else needs to
+ * change. Everything in the app reads these CSS variables.
+ */
+
+:root {
+  /* Partners palette */
+  --midnight: #001c29;
+  --denim: #2d75b2;
+  --gold: #cfaf6c;
+  --pepper: #ec4325;
+  --steel: #bcd0df;
+  --sky: #dbe6ee;
+  --stone: #f1e7d1;
+  --parchment: #f9f4ec;
+
+  /* Type */
+  --font-serif: Georgia, "Times New Roman", serif;
+  --font-sans: Arial, system-ui, -apple-system, sans-serif;
+
+  /* Semantic, light mode */
+  --bg: var(--parchment);
+  --surface: #ffffff;
+  --surface-2: var(--sky);
+  --border: #d8ccb0;
+  --text: var(--midnight);
+  --text-dim: #4a5a63;
+  --accent: var(--denim);
+  --cta: var(--gold);
+  --cta-text: var(--midnight);
+  --brand-bar: var(--pepper);
+
+  /* Status colors (deal stage / suite status) */
+  --status-leased: #2f8f5b;
+  --status-proposal: var(--denim);
+  --status-legal: #8a5cc4;
+  --status-touring: var(--gold);
+  --status-inquiry: #8a949a;
+  --status-vacant: #b7bcc0;
+  --status-dead: #9aa0a4;
+
+  /* Urgency (attention view, clock countdown) */
+  --urgent-red: var(--pepper);
+  --urgent-amber: #e0952a;
+  --urgent-green: #2f8f5b;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #051119;
+    --surface: #0b1f2b;
+    --surface-2: #102a38;
+    --border: #1c3a4b;
+    --text: #eaf1f5;
+    --text-dim: #93a7b3;
+    --accent: var(--steel);
+    --cta: var(--gold);
+    --cta-text: var(--midnight);
+    --brand-bar: var(--pepper);
+
+    --status-leased: #3fbf7a;
+    --status-proposal: #5b9fd6;
+    --status-legal: #a97fe0;
+    --status-touring: var(--gold);
+    --status-inquiry: #7d8b93;
+    --status-vacant: #46545d;
+    --status-dead: #55606a;
+
+    --urgent-red: #ff5a41;
+    --urgent-amber: #f0a836;
+    --urgent-green: #3fbf7a;
+  }
+}
+
+/* Manual override, set data-theme="dark" or "light" on <html> to force. */
+:root[data-theme="dark"] {
+  --bg: #051119;
+  --surface: #0b1f2b;
+  --surface-2: #102a38;
+  --border: #1c3a4b;
+  --text: #eaf1f5;
+  --text-dim: #93a7b3;
+  --accent: var(--steel);
+  --status-leased: #3fbf7a;
+  --status-proposal: #5b9fd6;
+  --status-legal: #a97fe0;
+  --status-inquiry: #7d8b93;
+  --status-vacant: #46545d;
+  --status-dead: #55606a;
+  --urgent-red: #ff5a41;
+  --urgent-amber: #f0a836;
+  --urgent-green: #3fbf7a;
+}

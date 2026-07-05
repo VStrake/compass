@@ -5,7 +5,8 @@
   "description": "Private deal-tracking system for Vince Strake. Mirrors VTS, fed from email. JSON file is the source of truth, no database.",
   "type": "commonjs",
   "scripts": {
-    "validate": "node scripts/validate.js"
+    "validate": "node scripts/validate.js",
+    "serve": "npx --yes http-server -p 8080 -c-1 ."
   },
   "license": "UNLICENSED"
 }

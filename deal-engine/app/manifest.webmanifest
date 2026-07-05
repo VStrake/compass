@@ -1,0 +1,19 @@
+{
+  "name": "Deal Engine",
+  "short_name": "Deals",
+  "description": "Private deal-tracking stack",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#001c29",
+  "theme_color": "#001c29",
+  "icons": [
+    {
+      "src": "icons/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

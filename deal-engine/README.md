@@ -14,6 +14,17 @@ deal-engine/
     deal-stack.json     the deal stack, one record per active or dead deal
   scripts/
     validate.js         schema and health checks over the stack
+  app/                  the front end (static PWA, no build step)
+    index.html
+    app.js              views, routing, rendering
+    auth.js             optional password gate scaffold
+    styles.css
+    tokens.css          brand tokens, the file to swap
+    manifest.webmanifest
+    sw.js               service worker for offline home-screen use
+    icons/icon.svg
+  vercel.json           static deploy config
+  middleware.js.example real password gate for Vercel (opt in)
   package.json
 ```
 
@@ -66,6 +77,79 @@ The validator checks:
 Schema problems are errors and exit non-zero, so `npm run validate` can gate a
 commit or a scheduled run. Stale balls, expired clocks, and drift are warnings
 and do not fail the run.
+
+## Front end
+
+A single-page PWA in `app/` that reads `data/deal-stack.json` directly. No
+framework, no bundler, no build server. Plain HTML, CSS, and ES modules.
+Mobile-first, dark-mode aware, and installable to the iPhone home screen.
+
+Four views:
+
+1. Attention (the default on open). Every deal where the ball is in your
+   court, sorted by clock urgency, most overdue first. This is the "what do
+   I touch today" screen.
+2. Pipeline. A VTS-style funnel from Inquiry through Executed with the deal
+   count and total SF per stage, filterable by building and owner, with the
+   matching deals listed underneath.
+3. Buildings. A vertical stacking diagram per building, one block per tracked
+   suite, colored by status (leased, in proposal, in legal, touring, vacant),
+   with an encumbrance warning icon on affected suites. Tap a suite to open
+   its deal.
+4. Deal detail. Tenant, RSF, suite, brokers, full economics with NER,
+   ball-in-court with days elapsed, clock countdown, the full dated activity
+   log with source citations, and the linked documents folder plus email
+   thread fingerprints.
+
+The stacking diagram is built from the deals in the stack, so it shows the
+suites you are tracking, not a full rent roll. Add building inventory to the
+schema later if you want vacant and existing-lease floors to appear too.
+
+### Running it locally
+
+The app fetches the JSON over http, so it needs a static server. It will not
+work from a `file://` path. From the `deal-engine` folder:
+
+```bash
+npx http-server -p 8080 -c-1 .
+# then open http://localhost:8080/app/
+```
+
+Any static server works (`python3 -m http.server 8080` and open
+`/app/index.html` is fine too).
+
+### Brand tokens
+
+There was no `~/Partners/brand/` tokens file when this was built, so
+`app/tokens.css` ships the Partners palette as placeholders. Swap the values
+in that one file and the whole app follows. Nothing else references colors
+directly.
+
+### Deploying to Vercel
+
+The whole `deal-engine` folder deploys as a static site with one command, no
+build step:
+
+```bash
+cd deal-engine
+vercel deploy --prod
+```
+
+`vercel.json` redirects the root to the app and serves the data file with a
+no-store cache header so you always see the current stack. The service worker
+keeps the last-known stack available offline once the app has been opened.
+
+### Password gate for a deployment
+
+Local use has no login. For a Vercel deployment you have two options, both
+documented in `app/auth.js`:
+
+1. Real protection: use Vercel Deployment Protection (password protection in
+   project settings), or rename `middleware.js.example` to `middleware.js`
+   and set a `GATE_PASSWORD` env var. This runs on the server before any file
+   is served, so it actually protects the JSON.
+2. Convenience gate: flip `AUTH_ENABLED` in `app/auth.js`. This only hides the
+   UI and is not real security on its own.
 
 ## Seed data
 

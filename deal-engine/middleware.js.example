@@ -1,0 +1,46 @@
+/*
+ * Optional Vercel Edge Middleware: real password gate for a deployment.
+ *
+ * This is the honest way to keep the deal stack private on Vercel, because
+ * it runs on the server before any file (including data/deal-stack.json) is
+ * served. The client-side gate in app/auth.js cannot do that.
+ *
+ * To turn it on:
+ *   1. Rename this file to middleware.js (drop the .example).
+ *   2. In the Vercel project settings add an env var GATE_PASSWORD.
+ *   3. Redeploy. The browser will show a Basic Auth prompt.
+ *
+ * Prefer Vercel's built-in Deployment Protection (Password Protection in
+ * project settings) if it is available on your plan. It needs no code.
+ */
+
+export const config = {
+  // Protect everything except the icon so the home-screen tile still loads.
+  matcher: ["/((?!icons/).*)"],
+};
+
+export default function middleware(request) {
+  const expected = process.env.GATE_PASSWORD;
+
+  // No password configured means no gate. Fail open for local-style deploys.
+  if (!expected) return;
+
+  const header = request.headers.get("authorization") || "";
+  const [scheme, encoded] = header.split(" ");
+
+  if (scheme === "Basic" && encoded) {
+    let decoded = "";
+    try {
+      decoded = atob(encoded);
+    } catch (_) {
+      decoded = "";
+    }
+    const pw = decoded.slice(decoded.indexOf(":") + 1);
+    if (pw === expected) return; // authorized, let the request through
+  }
+
+  return new Response("Authentication required.", {
+    status: 401,
+    headers: { "WWW-Authenticate": 'Basic realm="Deal Engine", charset="UTF-8"' },
+  });
+}
