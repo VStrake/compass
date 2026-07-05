@@ -31,8 +31,7 @@ const STAGES = [
   "dead"
 ];
 const STAGE_RANK = Object.fromEntries(STAGES.map((s, i) => [s, i]));
-const BALLS = ["us", "tenant", "attorney", "owner"];
-const LOG_SOURCES = ["email", "manual", "system", "vts"];
+const BALLS = ["us", "tenant", "attorney", "owner", "client"];
 
 const STALE_BALL_DAYS = 3;
 
@@ -104,8 +103,8 @@ function validateDeal(deal, index) {
   requireField(id, deal, "owner", isString, "must be a non-empty string");
   requireField(id, deal, "tenant", isString, "must be a non-empty string");
   requireField(id, deal, "tenant_type", isString, "must be a non-empty string");
-  requireField(id, deal, "rsf", (v) => typeof v === "number" && v >= 0, "must be a non-negative number");
-  requireField(id, deal, "floor_suite", isString, "must be a non-empty string");
+  requireField(id, deal, "rsf", (v) => v === null || (typeof v === "number" && v >= 0), "must be a non-negative number or null");
+  requireField(id, deal, "floor_suite", (v) => v === null || isString(v), "must be a string or null");
 
   if (requireField(id, deal, "stage", isString, "must be a non-empty string")) {
     if (!STAGES.includes(deal.stage)) {
@@ -127,16 +126,22 @@ function validateDeal(deal, index) {
     }
   }
 
-  // clock
+  // clock (may be null when there is no live deadline)
   let clockDue = null;
-  if (requireField(id, deal, "clock", (v) => typeof v === "object" && v !== null, "must be an object")) {
-    const clock = deal.clock;
-    requireField(id, clock, "type", isString, "must be a non-empty string");
-    requireField(id, clock, "what", isString, "must be a non-empty string");
-    if (requireField(id, clock, "due", isString, "must be a date string")) {
-      clockDue = parseDate(clock.due);
-      if (!clockDue) {
-        err(id, `clock.due "${clock.due}" is not a valid YYYY-MM-DD date`);
+  if (!("clock" in deal)) {
+    err(id, 'missing required field "clock" (use null when there is no clock)');
+  } else if (deal.clock !== null) {
+    if (typeof deal.clock !== "object") {
+      err(id, 'field "clock" must be an object or null');
+    } else {
+      const clock = deal.clock;
+      requireField(id, clock, "type", isString, "must be a non-empty string");
+      requireField(id, clock, "what", isString, "must be a non-empty string");
+      if (requireField(id, clock, "due", isString, "must be a date string")) {
+        clockDue = parseDate(clock.due);
+        if (!clockDue) {
+          err(id, `clock.due "${clock.due}" is not a valid YYYY-MM-DD date`);
+        }
       }
     }
   }
@@ -146,20 +151,24 @@ function validateDeal(deal, index) {
   // economics
   if (requireField(id, deal, "economics", (v) => typeof v === "object" && v !== null, "must be an object")) {
     const e = deal.economics;
+    // ti and round are often narrative in real deals ("turn-key", "LLP8"),
+    // so they accept a string as well as a number or null.
+    const numStrOrNull = (v) => v === null || typeof v === "number" || typeof v === "string";
     requireField(id, e, "rate_nnn", isNumberOrNull, "must be a number or null");
     requireField(id, e, "term_mo", isNumberOrNull, "must be a number or null");
     requireField(id, e, "free_rent_mo", isNumberOrNull, "must be a number or null");
-    requireField(id, e, "ti", isNumberOrNull, "must be a number or null");
+    requireField(id, e, "ti", numStrOrNull, "must be a number, string, or null");
     requireField(id, e, "ner", isNumberOrNull, "must be a number or null");
-    requireField(id, e, "round", isNumberOrNull, "must be a number or null");
+    requireField(id, e, "round", numStrOrNull, "must be a number, string, or null");
   }
 
   // people
   if (requireField(id, deal, "people", (v) => typeof v === "object" && v !== null, "must be an object")) {
     const p = deal.people;
-    requireField(id, p, "tenant_broker", isString, "must be a non-empty string");
-    requireField(id, p, "ll_counsel", isString, "must be a non-empty string");
-    requireField(id, p, "owner_contact", isString, "must be a non-empty string");
+    const strOrNull = (v) => v === null || isString(v);
+    requireField(id, p, "tenant_broker", strOrNull, "must be a string or null");
+    requireField(id, p, "ll_counsel", strOrNull, "must be a string or null");
+    requireField(id, p, "owner_contact", strOrNull, "must be a string or null");
   }
 
   requireField(id, deal, "folder_path", isString, "must be a non-empty string");
@@ -185,8 +194,10 @@ function validateDeal(deal, index) {
       if (!isString(entry.event)) {
         err(id, `log[${i}].event must be a non-empty string`);
       }
-      if (!isString(entry.source) || !LOG_SOURCES.includes(entry.source)) {
-        err(id, `log[${i}].source must be one of: ${LOG_SOURCES.join(", ")}`);
+      // source is the citation itself: an email id, a SharePoint doc, a
+      // dated note. Any non-empty string is valid, so every entry is sourced.
+      if (!isString(entry.source)) {
+        err(id, `log[${i}].source must be a non-empty citation string`);
       }
       // source_id is optional, but when present (sweep-written entries) it
       // must be a non-empty string so the entry can cite its source email.

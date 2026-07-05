@@ -4,8 +4,11 @@ node_modules/
 .env
 .env.local
 
-# Runtime outputs. The stack in data/ is the source of truth; these are
-# generated per run and should not be committed.
+# Real deal data is private and never committed. The tracked schema example
+# is data/deal-stack.example.json; the live stack stays local and in OneDrive.
+data/deal-stack.json
+
+# Runtime outputs. These are generated per run and should not be committed.
 archive/
 exports/
 sweep/questions.json

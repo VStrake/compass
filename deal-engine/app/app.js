@@ -33,6 +33,7 @@ const BALL_LABEL = {
   tenant: "Tenant",
   attorney: "Attorney",
   owner: "Owner",
+  client: "Client",
 };
 
 // Stage -> suite status bucket for the stacking diagram.
@@ -130,7 +131,10 @@ function fmtSF(n) {
 }
 
 function money(n) {
-  if (n === null || n === undefined) return "-";
+  if (n === null || n === undefined || n === "") return "-";
+  // Some economics fields carry narrative values (ti: "turn-key",
+  // round: "LLP8"). Numbers get formatted; strings pass through as written.
+  if (typeof n !== "number") return String(n);
   return "$" + n.toLocaleString("en-US", { maximumFractionDigits: 2 });
 }
 

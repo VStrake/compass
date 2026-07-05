@@ -209,7 +209,8 @@ install the PWA.
 
 ```
 deal-engine/
-  data/deal-stack.json          source of truth
+  data/deal-stack.json          source of truth (private, gitignored)
+  data/deal-stack.example.json  tracked schema example (placeholder deals)
   app/                          static PWA (see Front end)
   generators/
     lib/activity-stack-core.js  reusable workbook core
@@ -238,9 +239,19 @@ deal-engine/
 - All outbound email is draft-only. Vince is the only sender.
 - Snapshot before every write to the stack.
 
-## Seed data
+## Data and privacy
 
-The stack ships with five placeholder deals, one per building, each tagged
-`placeholder`: San Felipe Plaza (Sovereign), Jones on Main (Wideman),
-15600 JFK (Ladder), Bayou Place (Cordish), and 1415 Louisiana (WEDGE).
-Replace them with real data as deals come in.
+The live stack, `data/deal-stack.json`, is private. It is gitignored and never
+committed, so real tenant names, economics, and encumbrances stay off GitHub.
+It lives locally and in your OneDrive.
+
+The repo tracks `data/deal-stack.example.json` instead: five placeholder deals,
+one per building, tagged `placeholder`. It documents the schema and lets the
+tooling run on a clean machine. To start from it:
+
+```bash
+cp data/deal-stack.example.json data/deal-stack.json
+```
+
+Then replace the placeholders with real data (or drop in your populated stack).
+All scripts read `data/deal-stack.json`.
