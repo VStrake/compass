@@ -1,0 +1,11 @@
+{
+  "name": "deal-engine",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Private deal-tracking system for Vince Strake. Mirrors VTS, fed from email. JSON file is the source of truth, no database.",
+  "type": "commonjs",
+  "scripts": {
+    "validate": "node scripts/validate.js"
+  },
+  "license": "UNLICENSED"
+}

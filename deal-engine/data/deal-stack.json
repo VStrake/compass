@@ -1,0 +1,224 @@
+{
+  "meta": {
+    "owner": "Vince Strake",
+    "role": "Landlord leasing broker, Partners Real Estate, Houston",
+    "description": "Private deal-tracking stack. JSON is the source of truth. Fed automatically from email.",
+    "schema_version": 1,
+    "last_updated": "2026-07-05"
+  },
+  "deals": [
+    {
+      "id": "san-felipe-plaza-0001",
+      "building": "San Felipe Plaza",
+      "owner": "Sovereign",
+      "tenant": "PLACEHOLDER Tenant Co",
+      "tenant_type": "law firm",
+      "rsf": 12500,
+      "floor_suite": "18th floor, Suite 1800",
+      "stage": "negotiating",
+      "ball": "tenant",
+      "ball_since": "2026-07-03",
+      "clock": {
+        "type": "proposal_response",
+        "due": "2026-07-10",
+        "what": "Tenant to respond to second-round proposal"
+      },
+      "next_action": "Await tenant counter, then package for owner review",
+      "economics": {
+        "rate_nnn": 42.0,
+        "term_mo": 84,
+        "free_rent_mo": 6,
+        "ti": 65.0,
+        "ner": 34.5,
+        "round": 2
+      },
+      "people": {
+        "tenant_broker": "PLACEHOLDER tenant broker",
+        "ll_counsel": "PLACEHOLDER landlord counsel",
+        "owner_contact": "PLACEHOLDER Sovereign asset manager"
+      },
+      "folder_path": "~/Partners/deal-engine/deals/san-felipe-plaza-0001",
+      "thread_subjects": [
+        "San Felipe Plaza Suite 1800 proposal",
+        "RE: San Felipe Plaza Suite 1800 proposal"
+      ],
+      "log": [
+        { "date": "2026-06-20", "event": "Inquiry received via email", "source": "email" },
+        { "date": "2026-06-24", "event": "Toured Suite 1800", "source": "manual" },
+        { "date": "2026-06-27", "event": "Proposal out, round 1", "source": "email" },
+        { "date": "2026-07-03", "event": "Counter received, entered negotiating", "source": "email" }
+      ],
+      "flags": ["placeholder"],
+      "encumbrances": []
+    },
+    {
+      "id": "jones-on-main-0002",
+      "building": "Jones on Main",
+      "owner": "Wideman",
+      "tenant": "PLACEHOLDER Tenant Co",
+      "tenant_type": "creative agency",
+      "rsf": 6800,
+      "floor_suite": "5th floor, Suite 520",
+      "stage": "proposal_out",
+      "ball": "us",
+      "ball_since": "2026-07-01",
+      "clock": {
+        "type": "internal_followup",
+        "due": "2026-07-08",
+        "what": "Send revised proposal to tenant broker"
+      },
+      "next_action": "Draft revised proposal with owner-approved concessions",
+      "economics": {
+        "rate_nnn": 34.0,
+        "term_mo": 60,
+        "free_rent_mo": 4,
+        "ti": 45.0,
+        "ner": 28.0,
+        "round": 1
+      },
+      "people": {
+        "tenant_broker": "PLACEHOLDER tenant broker",
+        "ll_counsel": "PLACEHOLDER landlord counsel",
+        "owner_contact": "PLACEHOLDER Wideman principal"
+      },
+      "folder_path": "~/Partners/deal-engine/deals/jones-on-main-0002",
+      "thread_subjects": [
+        "Jones on Main Suite 520 availability",
+        "RE: Jones on Main Suite 520 availability"
+      ],
+      "log": [
+        { "date": "2026-06-25", "event": "Inquiry received via email", "source": "email" },
+        { "date": "2026-06-29", "event": "Toured Suite 520", "source": "manual" },
+        { "date": "2026-07-01", "event": "Proposal out, round 1", "source": "email" }
+      ],
+      "flags": ["placeholder"],
+      "encumbrances": []
+    },
+    {
+      "id": "15600-jfk-0003",
+      "building": "15600 JFK",
+      "owner": "Ladder",
+      "tenant": "PLACEHOLDER Tenant Co",
+      "tenant_type": "logistics",
+      "rsf": 21000,
+      "floor_suite": "2nd floor, Suite 200",
+      "stage": "touring",
+      "ball": "tenant",
+      "ball_since": "2026-07-04",
+      "clock": {
+        "type": "tour_followup",
+        "due": "2026-07-11",
+        "what": "Tenant to confirm second tour date"
+      },
+      "next_action": "Hold for tenant scheduling, then send space plan",
+      "economics": {
+        "rate_nnn": 28.5,
+        "term_mo": 120,
+        "free_rent_mo": 8,
+        "ti": 55.0,
+        "ner": 22.0,
+        "round": 0
+      },
+      "people": {
+        "tenant_broker": "PLACEHOLDER tenant broker",
+        "ll_counsel": "PLACEHOLDER landlord counsel",
+        "owner_contact": "PLACEHOLDER Ladder leasing rep"
+      },
+      "folder_path": "~/Partners/deal-engine/deals/15600-jfk-0003",
+      "thread_subjects": [
+        "15600 JFK Suite 200 tour request"
+      ],
+      "log": [
+        { "date": "2026-06-30", "event": "Inquiry received via email", "source": "email" },
+        { "date": "2026-07-04", "event": "First tour completed", "source": "manual" }
+      ],
+      "flags": ["placeholder"],
+      "encumbrances": []
+    },
+    {
+      "id": "bayou-place-0004",
+      "building": "Bayou Place",
+      "owner": "Cordish",
+      "tenant": "PLACEHOLDER Tenant Co",
+      "tenant_type": "restaurant",
+      "rsf": 4200,
+      "floor_suite": "Ground floor, Suite G10",
+      "stage": "loi_agreed",
+      "ball": "attorney",
+      "ball_since": "2026-06-28",
+      "clock": {
+        "type": "lease_draft",
+        "due": "2026-06-30",
+        "what": "Landlord counsel to circulate first lease draft"
+      },
+      "next_action": "Chase landlord counsel for overdue lease draft",
+      "economics": {
+        "rate_nnn": 48.0,
+        "term_mo": 120,
+        "free_rent_mo": 10,
+        "ti": 90.0,
+        "ner": 36.0,
+        "round": 3
+      },
+      "people": {
+        "tenant_broker": "PLACEHOLDER tenant broker",
+        "ll_counsel": "PLACEHOLDER landlord counsel",
+        "owner_contact": "PLACEHOLDER Cordish development lead"
+      },
+      "folder_path": "~/Partners/deal-engine/deals/bayou-place-0004",
+      "thread_subjects": [
+        "Bayou Place G10 LOI",
+        "RE: Bayou Place G10 LOI"
+      ],
+      "log": [
+        { "date": "2026-06-05", "event": "Inquiry received via email", "source": "email" },
+        { "date": "2026-06-10", "event": "Toured Suite G10", "source": "manual" },
+        { "date": "2026-06-15", "event": "Proposal out, round 1", "source": "email" },
+        { "date": "2026-06-22", "event": "Entered negotiating", "source": "email" },
+        { "date": "2026-06-28", "event": "LOI agreed, handed to attorneys", "source": "email" }
+      ],
+      "flags": ["placeholder"],
+      "encumbrances": ["Percentage rent clause pending owner approval"]
+    },
+    {
+      "id": "1415-louisiana-0005",
+      "building": "1415 Louisiana",
+      "owner": "WEDGE",
+      "tenant": "PLACEHOLDER Tenant Co",
+      "tenant_type": "energy",
+      "rsf": 34000,
+      "floor_suite": "22nd floor, full floor",
+      "stage": "inquiry",
+      "ball": "us",
+      "ball_since": "2026-07-05",
+      "clock": {
+        "type": "initial_response",
+        "due": "2026-07-07",
+        "what": "Send availability and asking terms to tenant broker"
+      },
+      "next_action": "Reply to inbound inquiry with stacking plan and asking rate",
+      "economics": {
+        "rate_nnn": 38.0,
+        "term_mo": 84,
+        "free_rent_mo": 5,
+        "ti": 60.0,
+        "ner": 31.0,
+        "round": 0
+      },
+      "people": {
+        "tenant_broker": "PLACEHOLDER tenant broker",
+        "ll_counsel": "PLACEHOLDER landlord counsel",
+        "owner_contact": "PLACEHOLDER WEDGE asset manager"
+      },
+      "folder_path": "~/Partners/deal-engine/deals/1415-louisiana-0005",
+      "thread_subjects": [
+        "1415 Louisiana 22nd floor availability"
+      ],
+      "log": [
+        { "date": "2026-07-05", "event": "Inquiry received via email", "source": "email" }
+      ],
+      "flags": ["placeholder"],
+      "encumbrances": []
+    }
+  ]
+}
