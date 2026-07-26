@@ -31,6 +31,7 @@ import { ColumnMesh } from './meshes/ColumnMesh';
 import { CoreMesh } from './meshes/CoreMesh';
 import { FurnitureMesh } from './meshes/FurnitureMesh';
 import { SlabMesh } from './meshes/SlabMesh';
+import { UnderlayMesh } from './meshes/UnderlayMesh';
 import { WallMesh } from './meshes/WallMesh';
 import { ZoneOverlay } from './meshes/ZoneOverlay';
 
@@ -57,6 +58,14 @@ function FloorGroupImpl({ floorId, visible }: FloorGroupProps) {
       {floor.slabs.map((slab) => (
         <SlabMesh key={slab.id} floorId={floorId} slabId={slab.id} />
       ))}
+
+      {/*
+        The imported source plan, between the slab top and the zone overlays.
+        Mounted unconditionally — it subscribes to its own floor's `underlay` and
+        renders nothing when there is none, so a floor without an import costs a
+        single selector call.
+      */}
+      <UnderlayMesh floorId={floorId} />
 
       {floor.zones.map((zone) => (
         <ZoneOverlay key={zone.id} floorId={floorId} zoneId={zone.id} />

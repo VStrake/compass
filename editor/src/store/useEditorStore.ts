@@ -287,7 +287,7 @@ export function cloneFloorWithNewIds(source: Floor, index: number): Floor {
     rotation: item.rotation,
   }));
 
-  return {
+  const clone: Floor = {
     id: newFloorId(),
     name: floorName(index),
     index,
@@ -300,6 +300,13 @@ export function cloneFloorWithNewIds(source: Floor, index: number): Floor {
     zones,
     furniture,
   };
+  if (source.underlay) {
+    clone.underlay = {
+      ...source.underlay,
+      offset: { x: source.underlay.offset.x, y: source.underlay.offset.y },
+    };
+  }
+  return clone;
 }
 
 /**

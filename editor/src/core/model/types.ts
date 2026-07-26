@@ -119,6 +119,39 @@ export interface Floor {
   cores: Core[];
   zones: Zone[];
   furniture: FurnitureInstance[];
+  /**
+   * Imported source plan pinned under the plate for visual QA (M1.5 Plan
+   * import). Optional and additive: absent/null on every document authored
+   * before plan import, so `schemaVersion` stays 1.
+   */
+  underlay?: FloorUnderlay | null;
+}
+
+/**
+ * A raster floor plan (marketing plan, as-built scan) laid flat on the plate as
+ * a semi-transparent reference image.
+ *
+ * The image is stored **inline as a data URL** so the project document stays a
+ * single self-contained JSON file (ARCHITECTURE §9 — the document is the save
+ * format). Scale comes from two-point calibration, not from image DPI.
+ */
+export interface FloorUnderlay {
+  /** PNG/JPEG/WebP data URL — `data:image/png;base64,…`. */
+  imageDataUrl: string;
+  /** Calibration result: plan meters per image pixel. */
+  metersPerPixel: number;
+  /** Natural image width, pixels. */
+  imageWidth: number;
+  /** Natural image height, pixels. */
+  imageHeight: number;
+  /** World offset of the image **center**, plan meters. */
+  offset: Vec2;
+  /** Radians about +Y (same convention as `FurnitureInstance.rotation`). */
+  rotation: number;
+  /** 0..1. */
+  opacity: number;
+  /** False hides the underlay without discarding the calibration. */
+  visible: boolean;
 }
 
 // —— structure ——————————————————————————————————————————————————
