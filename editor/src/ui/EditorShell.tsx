@@ -1,42 +1,108 @@
 'use client';
 
 /**
- * PLACEHOLDER SHELL.
+ * Compass Studio editor shell: toolbar / tree / viewport / inspector / status.
+ * Proprietary and confidential. © Partners Real Estate.
  *
- * Minimal, dependency-free 3-pane editor layout so the app route renders and
- * builds. The UI agent replaces this with the real shell (Toolbar, Hierarchy,
- * Canvas, Inspector, Area panel) wired to `@/store/useEditorStore`.
+ * Owns the global keyboard map. Shortcuts are read imperatively through
+ * `getEditorState()` so the shell itself never subscribes to the document and
+ * never re-renders on an edit (ARCHITECTURE §2).
  */
-export default function EditorShell() {
+
+import { useEffect } from 'react';
+
+import { EditorCanvas } from '@/scene/EditorCanvas';
+import { getEditorState } from '@/store/useEditorStore';
+import { AreaPanel } from './panels/AreaPanel';
+import { HierarchyPanel } from './panels/HierarchyPanel';
+import { PropertiesPanel } from './panels/PropertiesPanel';
+import { StatusBar } from './StatusBar';
+import { Toolbar } from './Toolbar';
+
+/** Never hijack keys while the user is typing into a field. */
+function isTextEntry(target: EventTarget | null): boolean {
+  if (!(target instanceof HTMLElement)) return false;
+  if (target.isContentEditable) return true;
+  const tag = target.tagName;
+  return tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT';
+}
+
+export function EditorShell() {
+  useEffect(() => {
+    function onKeyDown(event: KeyboardEvent): void {
+      if (event.isComposing || isTextEntry(event.target)) return;
+
+      const store = getEditorState();
+      const accel = event.ctrlKey || event.metaKey;
+      const key = event.key.toLowerCase();
+
+      if (accel) {
+        if (key === 'z') {
+          event.preventDefault();
+          if (event.shiftKey) store.redo();
+          else store.undo();
+          return;
+        }
+        if (key === 'y') {
+          event.preventDefault();
+          store.redo();
+          return;
+        }
+        return; // leave every other accelerator to the browser
+      }
+
+      if (event.altKey) return;
+
+      switch (key) {
+        case 'v':
+          store.setActiveTool('select');
+          break;
+        case 'w':
+          store.setActiveTool('wall');
+          break;
+        case 'm':
+          store.setActiveTool('measure');
+          break;
+        case 'delete':
+        case 'backspace':
+          event.preventDefault();
+          store.deleteSelection();
+          break;
+        default:
+          break;
+      }
+    }
+
+    window.addEventListener('keydown', onKeyDown);
+    return () => window.removeEventListener('keydown', onKeyDown);
+  }, []);
+
   return (
-    <div className="flex h-full w-full flex-col bg-[#0f1115] text-[#e5e7eb]">
-      <header className="flex h-10 shrink-0 items-center gap-3 border-b border-[#262b34] bg-[#15181e] px-3">
-        <span className="text-sm font-semibold tracking-tight">Compass Studio</span>
-        <span className="text-[11px] uppercase tracking-widest text-[#9aa3b2]">Toolbar</span>
-      </header>
+    <div className="flex h-screen w-screen flex-col overflow-hidden bg-editor-bg text-editor-text">
+      <Toolbar />
 
       <div className="flex min-h-0 flex-1">
-        <aside className="flex w-64 shrink-0 flex-col overflow-y-auto border-r border-[#262b34] bg-[#15181e]">
-          <div className="border-b border-[#262b34] px-3 py-2 text-[11px] uppercase tracking-widest text-[#9aa3b2]">
-            Hierarchy
-          </div>
-          <div className="flex-1 p-3 text-[#9aa3b2]">Building tree placeholder</div>
+        <aside className="w-72 shrink-0 overflow-y-auto border-r border-editor-border bg-editor-panel">
+          <HierarchyPanel />
         </aside>
 
-        <section className="relative flex min-w-0 flex-1 items-center justify-center bg-[#0b0d11]">
-          <div className="pointer-events-none select-none text-center text-[#9aa3b2]">
-            <div className="text-[11px] uppercase tracking-widest">Canvas</div>
-            <div className="mt-1 text-xs">3D viewport placeholder</div>
-          </div>
+        <section className="relative min-w-0 flex-1 bg-editor-bg">
+          <EditorCanvas />
         </section>
 
-        <aside className="flex w-72 shrink-0 flex-col overflow-y-auto border-l border-[#262b34] bg-[#15181e]">
-          <div className="border-b border-[#262b34] px-3 py-2 text-[11px] uppercase tracking-widest text-[#9aa3b2]">
-            Inspector
+        <aside className="flex w-80 min-h-0 shrink-0 flex-col border-l border-editor-border bg-editor-panel">
+          <div className="min-h-0 flex-1 overflow-y-auto">
+            <PropertiesPanel />
           </div>
-          <div className="flex-1 p-3 text-[#9aa3b2]">Properties &amp; area placeholder</div>
+          <div className="max-h-[45%] shrink-0 overflow-y-auto border-t border-editor-border">
+            <AreaPanel />
+          </div>
         </aside>
       </div>
+
+      <StatusBar />
     </div>
   );
 }
+
+export default EditorShell;
