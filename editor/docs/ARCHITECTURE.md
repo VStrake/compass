@@ -391,6 +391,26 @@ Three WebGPU realities discovered during verification, all handled in code:
 - **M0 (this branch)** — scaffold, data model, store + undo/redo, WebGPU canvas,
   demo tower, wall draw/edit, hierarchy panel, properties panel, area panel,
   stack/explode/solo, tenant color mode.
+- **M1.5 Plan import (this branch)** — turn existing floor plans (PDF/image
+  scans, e.g. marketing plans and as-builts) into editable floors:
+  1. **Ingest** — drag-and-drop PNG/JPG/WebP or PDF (first page rendered
+     client-side via pdf.js) in an import dialog.
+  2. **Calibrate** — two-point scale calibration (click two points on the
+     image, type the real distance); the AI's scale estimate (from scale bars
+     or printed dimensions) pre-fills when available.
+  3. **Extract** — `POST /api/extract-plan` (Next.js route handler) sends the
+     image to Claude (`claude-opus-5`) with a strict JSON schema
+     (`output_config.format`): walls (with kind), zones (with kind + printed
+     RSF labels), cores, openings, columns, footprint, scale estimate. All
+     coordinates normalized to a 0–1000 image frame. The route requires
+     `ANTHROPIC_API_KEY` at deploy time and returns a clear 503 without it;
+     refusals (`stop_reason: "refusal"`) map to 422 with an explanation.
+  4. **Apply** — extraction maps through the calibration transform into real
+     `Wall`/`Zone`/`Core`/`Opening`/`Column`/`Slab` entities on a new or the
+     active floor, in ONE undo entry, with the source image kept as a
+     semi-transparent floor **underlay** (`Floor.underlay`, additive schema
+     field) for visual QA; printed RSF labels cross-check computed zone areas.
+  Underlay-only import stays available when extraction is unavailable.
 - **M1 Openings & cores** — door/window placement tool on walls, core planner
   (elevator bank / stair / restroom blocks), column grids.
 - **M2 Zones & tenancy** — zone drawing tool, tenant manager UI, vacancy/leased
