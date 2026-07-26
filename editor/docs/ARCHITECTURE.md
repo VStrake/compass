@@ -344,8 +344,25 @@ extend(THREE as unknown as Parameters<typeof extend>[0]);
 ```
 
 `WebGPURenderer` falls back to WebGL2 automatically when `navigator.gpu` is
-absent, so one code path serves both; a small badge in the status bar reports the
-active backend.
+absent, so one code path serves both; a badge in the viewport reports the active
+backend.
+
+Three WebGPU realities discovered during verification, all handled in code:
+
+1. **Device loss recovery** (`EditorCanvas.tsx`) — a GPU device can be lost at
+   any time (driver reset, GPU process crash, software adapters) and
+   `WebGPURenderer` has no recovery path, leaving a permanently black viewport.
+   The canvas subscribes to `device.lost`; on an unexpected loss (reason other
+   than `'destroyed'`) it remounts the renderer with `forceWebGL: true`.
+2. **`createView` swizzle shim** (`webgpuCompat.ts`) — three r185 passes
+   `swizzle: 'rgba'` as a string in every texture view descriptor; current
+   Chromium types that member as a dictionary and throws, killing every frame.
+   A lazy patch strips/converts the identity swizzle only after the browser
+   proves it rejects the string form. Remove when three catches up.
+3. **No GLSL under WebGPU** — drei's `<Grid>`/`<Line>` are `ShaderMaterial`-based
+   and the node builder silently replaces them with blank materials. The scene
+   uses its own `ReferenceGrid` and `SceneLine` (plain `LineBasicMaterial`),
+   which compile on both backends.
 
 ## 7. Performance strategy for 10–40 story towers
 
