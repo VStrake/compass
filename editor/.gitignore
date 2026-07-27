@@ -16,3 +16,6 @@ next-env.d.ts
 # secrets — never commit keys
 .env
 .env.*
+
+# single-file demo build output
+dist-artifact/
