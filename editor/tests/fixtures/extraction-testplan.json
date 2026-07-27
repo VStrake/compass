@@ -1,0 +1,159 @@
+{
+  "scale": {
+    "metersPerFrameUnit": 0.064,
+    "basis": "Graphic scale bar: 10 m spans ~156 frame units; cross-checked against the printed overall dimension 157'-6\" (48.0 m) across the 750-frame-unit plate width, which gives the same 0.064 m per frame unit."
+  },
+  "footprint": [
+    { "x": 125, "y": 112.5 },
+    { "x": 875, "y": 112.5 },
+    { "x": 875, "y": 581.25 },
+    { "x": 125, "y": 581.25 }
+  ],
+  "walls": [
+    { "x1": 125, "y1": 112.5, "x2": 325, "y2": 112.5, "kind": "exterior" },
+    { "x1": 325, "y1": 112.5, "x2": 656.25, "y2": 112.5, "kind": "exterior" },
+    { "x1": 656.25, "y1": 112.5, "x2": 875, "y2": 112.5, "kind": "exterior" },
+    { "x1": 875, "y1": 112.5, "x2": 875, "y2": 581.25, "kind": "exterior" },
+    { "x1": 875, "y1": 581.25, "x2": 656.25, "y2": 581.25, "kind": "exterior" },
+    { "x1": 656.25, "y1": 581.25, "x2": 125, "y2": 581.25, "kind": "exterior" },
+    { "x1": 125, "y1": 581.25, "x2": 125, "y2": 112.5, "kind": "exterior" },
+    { "x1": 656.25, "y1": 112.5, "x2": 656.25, "y2": 581.25, "kind": "demising" },
+    { "x1": 325, "y1": 112.5, "x2": 325, "y2": 237.5, "kind": "interior" },
+    { "x1": 325, "y1": 237.5, "x2": 400, "y2": 237.5, "kind": "interior" },
+    { "x1": 400, "y1": 237.5, "x2": 600, "y2": 237.5, "kind": "interior" },
+    { "x1": 600, "y1": 237.5, "x2": 600, "y2": 456.25, "kind": "interior" },
+    { "x1": 600, "y1": 456.25, "x2": 400, "y2": 456.25, "kind": "interior" },
+    { "x1": 400, "y1": 456.25, "x2": 400, "y2": 237.5, "kind": "interior" },
+    { "x1": 400, "y1": 306.25, "x2": 600, "y2": 306.25, "kind": "interior" },
+    { "x1": 400, "y1": 381.25, "x2": 600, "y2": 381.25, "kind": "interior" },
+    { "x1": 500, "y1": 237.5, "x2": 500, "y2": 306.25, "kind": "interior" },
+    { "x1": 500, "y1": 381.25, "x2": 500, "y2": 456.25, "kind": "interior" }
+  ],
+  "zones": [
+    {
+      "name": "LOBBY",
+      "kind": "common",
+      "outline": [
+        { "x": 125, "y": 112.5 },
+        { "x": 325, "y": 112.5 },
+        { "x": 325, "y": 237.5 },
+        { "x": 125, "y": 237.5 }
+      ],
+      "labeledAreaSqft": 1621
+    },
+    {
+      "name": "SUITE 100",
+      "kind": "tenant-suite",
+      "outline": [
+        { "x": 125, "y": 237.5 },
+        { "x": 400, "y": 237.5 },
+        { "x": 400, "y": 581.25 },
+        { "x": 125, "y": 581.25 }
+      ],
+      "labeledAreaSqft": 5767
+    },
+    {
+      "name": "SUITE 110",
+      "kind": "tenant-suite",
+      "outline": [
+        { "x": 656.25, "y": 112.5 },
+        { "x": 875, "y": 112.5 },
+        { "x": 875, "y": 581.25 },
+        { "x": 656.25, "y": 581.25 }
+      ],
+      "labeledAreaSqft": 3187
+    },
+    {
+      "name": "CORRIDOR",
+      "kind": "circulation",
+      "outline": [
+        { "x": 400, "y": 456.25 },
+        { "x": 600, "y": 456.25 },
+        { "x": 600, "y": 581.25 },
+        { "x": 400, "y": 581.25 }
+      ],
+      "labeledAreaSqft": null
+    },
+    {
+      "name": "JANITOR",
+      "kind": "service",
+      "outline": [
+        { "x": 500, "y": 381.25 },
+        { "x": 600, "y": 381.25 },
+        { "x": 600, "y": 456.25 },
+        { "x": 500, "y": 456.25 }
+      ],
+      "labeledAreaSqft": null
+    }
+  ],
+  "cores": [
+    {
+      "kind": "stair",
+      "outline": [
+        { "x": 400, "y": 237.5 },
+        { "x": 500, "y": 237.5 },
+        { "x": 500, "y": 306.25 },
+        { "x": 400, "y": 306.25 }
+      ],
+      "label": "STAIR A"
+    },
+    {
+      "kind": "electrical",
+      "outline": [
+        { "x": 500, "y": 237.5 },
+        { "x": 600, "y": 237.5 },
+        { "x": 600, "y": 306.25 },
+        { "x": 500, "y": 306.25 }
+      ],
+      "label": "ELEC."
+    },
+    {
+      "kind": "restroom",
+      "outline": [
+        { "x": 400, "y": 306.25 },
+        { "x": 500, "y": 306.25 },
+        { "x": 500, "y": 381.25 },
+        { "x": 400, "y": 381.25 }
+      ],
+      "label": "MEN'S"
+    },
+    {
+      "kind": "restroom",
+      "outline": [
+        { "x": 500, "y": 306.25 },
+        { "x": 600, "y": 306.25 },
+        { "x": 600, "y": 381.25 },
+        { "x": 500, "y": 381.25 }
+      ],
+      "label": "WOMEN'S"
+    },
+    {
+      "kind": "stair",
+      "outline": [
+        { "x": 400, "y": 381.25 },
+        { "x": 500, "y": 381.25 },
+        { "x": 500, "y": 456.25 },
+        { "x": 400, "y": 456.25 }
+      ],
+      "label": "STAIR B"
+    }
+  ],
+  "openings": [
+    { "wallIndex": 0, "positionRatio": 0.5, "kind": "window", "widthMeters": 9.6 },
+    { "wallIndex": 1, "positionRatio": 0.5, "kind": "window", "widthMeters": 18.0 },
+    { "wallIndex": 2, "positionRatio": 0.5, "kind": "window", "widthMeters": 10.8 },
+    { "wallIndex": 5, "positionRatio": 0.55, "kind": "door", "widthMeters": null },
+    { "wallIndex": 4, "positionRatio": 0.65, "kind": "door", "widthMeters": null },
+    { "wallIndex": 10, "positionRatio": 0.19, "kind": "door", "widthMeters": null },
+    { "wallIndex": 12, "positionRatio": 0.28, "kind": "door", "widthMeters": null }
+  ],
+  "columns": [
+    { "x": 314.4, "y": 298.75 },
+    { "x": 314.4, "y": 486.25 },
+    { "x": 689.4, "y": 298.75 },
+    { "x": 689.4, "y": 486.25 },
+    { "x": 501.9, "y": 486.25 },
+    { "x": 501.9, "y": 180 }
+  ],
+  "notes": "Printed LOBBY area (1,621 SF) reads larger than the drawn room measures at the stated scale (~1,100 SF); figures transcribed verbatim. The restroom band shows MEN'S and WOMEN'S labels with the divider assumed at the core midline. Suite 100's polygon is simplified to its main rectangle west of the core; the strip north of the core between the lobby partition and the demising wall is not separately labelled."
+}

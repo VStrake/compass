@@ -18,6 +18,7 @@ import {
   type ColorMode,
   type FloorViewMode,
 } from '@/store/useEditorStore';
+import { ImportPlanButton } from './import/ImportPlanButton';
 import {
   Button,
   InlineEditableText,
@@ -197,6 +198,8 @@ export function Toolbar() {
       </div>
 
       <Divider />
+
+      <ImportPlanButton />
 
       <Button
         onClick={downloadProjectJson}

@@ -21,6 +21,14 @@ rendering (automatic WebGL2 fallback and device-loss recovery). No install.
 - **Area analytics** — live gross / rentable / common / core areas, efficiency
   ratios, and per-tenant square footage, per floor and building-wide.
 - **Tenant zoning** — color-code the model by tenant or zone classification.
+- **Plan import (M1.5)** — drag-and-drop a floor plan (PDF or image, e.g. a
+  marketing plan or as-built): two-point scale calibration, Claude Vision
+  extraction (`/api/extract-plan`, `claude-opus-5` with a strict JSON schema)
+  into editable walls/zones/cores/openings/columns/slab in one undo step, with
+  the source image pinned as a calibrated floor underlay. Requires
+  `ANTHROPIC_API_KEY` (or `ANTHROPIC_AUTH_TOKEN`) — the same Vercel env var the
+  Compass wayfinding app already uses; without it, underlay-only import still
+  works. Test fixtures in `tests/fixtures/`.
 - **Demo asset** — "Meridian Tower", a deterministic 12-story Class A plate
   with core, tenant suites, and furnished open-plan floors.
 - **Undo/redo** — patch-based history for every document edit; drags and wall
