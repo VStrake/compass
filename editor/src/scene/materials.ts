@@ -185,12 +185,57 @@ const TENANT_MODE_NEUTRAL = '#4b5160';
  *                 so the built materials are what you see (see
  *                 {@link zoneOpacityFor}).
  */
+/**
+ * Lease-rollover buckets, in months from now. Deliberately coarse: brokers read
+ * a stack for "what rolls soon", not exact dates.
+ */
+export const EXPIRY_BUCKETS = [
+  { key: 'vacant', label: 'Vacant', color: VACANT_COLOR },
+  { key: 'near', label: '< 12 months', color: '#ef4444' },
+  { key: 'mid', label: '1 – 3 years', color: '#f59e0b' },
+  { key: 'far', label: '3+ years', color: '#22c55e' },
+] as const;
+
+export type ExpiryBucketKey = (typeof EXPIRY_BUCKETS)[number]['key'];
+
+const MS_PER_MONTH = 1000 * 60 * 60 * 24 * 365.25 / 12;
+
+/**
+ * Which rollover bucket a tenant falls in. `now` is injected so callers can
+ * render a stable diagram (and tests can pin a date) rather than reading the
+ * clock deep in the render path.
+ */
+export function expiryBucketFor(tenant: Tenant | undefined, now: number): ExpiryBucketKey {
+  if (!tenant || tenant.status === 'vacant') return 'vacant';
+  if (!tenant.leaseExpiry) return 'far';
+  const expiry = Date.parse(tenant.leaseExpiry);
+  if (Number.isNaN(expiry)) return 'far';
+  const months = (expiry - now) / MS_PER_MONTH;
+  if (months <= 12) return 'near';
+  if (months <= 36) return 'mid';
+  return 'far';
+}
+
+const EXPIRY_COLORS: Record<ExpiryBucketKey, string> = {
+  vacant: EXPIRY_BUCKETS[0].color,
+  near: EXPIRY_BUCKETS[1].color,
+  mid: EXPIRY_BUCKETS[2].color,
+  far: EXPIRY_BUCKETS[3].color,
+};
+
 export function zoneColorFor(
   zone: Zone,
   tenants: Record<TenantId, Tenant>,
   colorMode: ColorMode,
+  now: number = Date.now(),
 ): string {
   if (colorMode === 'zoneKind') return ZONE_KIND_COLORS[zone.kind] ?? TENANT_MODE_NEUTRAL;
+
+  if (colorMode === 'expiry') {
+    if (zone.kind !== 'tenant-suite') return TENANT_MODE_NEUTRAL;
+    const tenant = zone.tenantId ? tenants[zone.tenantId] : undefined;
+    return EXPIRY_COLORS[expiryBucketFor(tenant, now)];
+  }
 
   if (colorMode === 'tenant') {
     if (zone.kind !== 'tenant-suite') return TENANT_MODE_NEUTRAL;
@@ -206,6 +251,7 @@ export function zoneColorFor(
 export function zoneOpacityFor(colorMode: ColorMode): number {
   switch (colorMode) {
     case 'tenant':
+    case 'expiry':
       return 0.45;
     case 'zoneKind':
       return 0.42;

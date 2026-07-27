@@ -229,6 +229,30 @@ export interface Zone {
   outline: Polygon;
   /** Only meaningful for `tenant-suite`; null = vacant / unassigned. */
   tenantId: TenantId | null;
+  /**
+   * Leasing facts carried over from a rent roll, when the zone came from one.
+   * `rsf` is the *authoritative* rentable area off the rent roll and may differ
+   * from the polygon's computed area — reports quote this when present and fall
+   * back to geometry otherwise. Optional so documents without it stay
+   * schemaVersion 1.
+   */
+  suite?: SuiteFacts;
+}
+
+/** Leasing facts for a suite, sourced from a rent roll rather than geometry. */
+export interface SuiteFacts {
+  /** Suite number as printed on the rent roll, e.g. "2450". */
+  number?: string;
+  /** Rentable square feet per the rent roll (not square meters). */
+  rsf?: number;
+  /** Asking base rent, $/RSF/year. */
+  baseRent?: number;
+  /** Operating expenses / NNN, $/RSF/year. */
+  nnn?: number;
+  /** ISO date the space becomes available, or "immediate". */
+  availableDate?: string;
+  /** Condition or marketing notes from the rent roll. */
+  notes?: string;
 }
 
 export type TenantStatus = 'vacant' | 'leased' | 'proposed' | 'expiring';

@@ -81,7 +81,7 @@ export type { Selection };
 
 export type ActiveTool = 'select' | 'wall' | 'measure';
 export type FloorViewMode = 'stack' | 'explode' | 'solo';
-export type ColorMode = 'material' | 'tenant' | 'zoneKind';
+export type ColorMode = 'material' | 'tenant' | 'zoneKind' | 'expiry';
 
 export interface EditorStore {
   // —— document (undoable) ——
