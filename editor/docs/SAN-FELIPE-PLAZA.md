@@ -43,6 +43,15 @@ RSF) and the garage (462 RSF). The tower model therefore totals **963,341 RSF
 over 45 floors** — 0.28% below the sheet's 966,034 RSF tower-only figure, the
 remainder being storage rows not transcribed.
 
+Reconciliation of all three figures, since the deltas run in opposite directions
+and a reader will otherwise assume an error:
+
+| | Sheet | Model | Delta | Why |
+|---|---|---|---|---|
+| Total | 980,473 | 963,341 | −17,132 | LWL (13,977) + garage (462) excluded; ~2,693 of untranscribed storage rows |
+| Leased | 829,994 | 833,135 | **+3,141** | Suite 4680 (Frontera, 3,680 SF) is modeled as leased through 8/31/27; the sheet also lists it available in 30 days (discrepancy 3 below) |
+| Vacant | 143,222 | 130,206 | −13,016 | The sheet counts future availability as vacant — suites 1910 (10,791) and 2375 (8,061); the model counts vacant-today (discrepancy 6 below) |
+
 **Floor 13 does not exist** in the sheet's stack and is not in the model; floors
 run 1–46 with 13 omitted, so the building has 45 floors.
 

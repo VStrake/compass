@@ -5,11 +5,6 @@
  * Proprietary and confidential. © Partners Real Estate.
  */
 
-import {
-  PROJECT_FILE_EXTENSION,
-  PROJECT_MIME_TYPE,
-  serializeProject,
-} from '@/core/export/projectJson';
 import type { WallKind } from '@/core/model/types';
 import {
   getEditorState,
@@ -19,13 +14,10 @@ import {
   type FloorViewMode,
 } from '@/store/useEditorStore';
 import { ImportPlanButton } from './import/ImportPlanButton';
-import {
-  Button,
-  InlineEditableText,
-  SegmentedControl,
-  titleCase,
-  type SegmentOption,
-} from './primitives';
+import { RentRollButton } from './import/RentRollButton';
+import { ProjectMenu } from './ProjectMenu';
+import { downloadProject } from './projectFile';
+import { Button, SegmentedControl, titleCase, type SegmentOption } from './primitives';
 
 const TOOL_OPTIONS: { tool: ActiveTool; label: string; shortcut: string; hint: string }[] = [
   { tool: 'select', label: '⬈ Select', shortcut: 'V', hint: 'Pick and edit entities' },
@@ -45,29 +37,18 @@ const COLOR_MODES: SegmentOption<ColorMode>[] = [
   { value: 'material', label: 'Material', title: 'Color by construction material' },
   { value: 'tenant', label: 'Tenant', title: 'Color suites by tenant' },
   { value: 'zoneKind', label: 'Zone', title: 'Color by zone classification' },
+  {
+    value: 'expiry',
+    label: 'Expiry',
+    title: 'Color suites by lease-rollover bucket (< 12 months / 1–3 years / 3+ / vacant)',
+  },
 ];
-
-/** Client-only download of the proprietary JSON document. */
-function downloadProjectJson(): void {
-  const { project } = getEditorState();
-  const blob = new Blob([serializeProject(project)], { type: PROJECT_MIME_TYPE });
-  const url = URL.createObjectURL(blob);
-  const anchor = document.createElement('a');
-  anchor.href = url;
-  anchor.download = `${project.name || 'untitled'}${PROJECT_FILE_EXTENSION}`;
-  document.body.appendChild(anchor);
-  anchor.click();
-  anchor.remove();
-  // Revoke on the next tick so Safari has committed the navigation.
-  window.setTimeout(() => URL.revokeObjectURL(url), 0);
-}
 
 function Divider() {
   return <span className="mx-1 h-6 w-px shrink-0 bg-editor-border" />;
 }
 
 export function Toolbar() {
-  const projectName = useEditorStore((state) => state.project.name);
   const activeTool = useEditorStore((state) => state.activeTool);
   const drawingWallKind = useEditorStore((state) => state.drawingWallKind);
   const floorViewMode = useEditorStore((state) => state.floorViewMode);
@@ -81,7 +62,6 @@ export function Toolbar() {
   const undoLabel = useEditorStore((state) => state.undoLabel);
   const redoLabel = useEditorStore((state) => state.redoLabel);
 
-  const renameProject = useEditorStore((state) => state.renameProject);
   const setActiveTool = useEditorStore((state) => state.setActiveTool);
   const setDrawingWallKind = useEditorStore((state) => state.setDrawingWallKind);
   const setFloorViewMode = useEditorStore((state) => state.setFloorViewMode);
@@ -94,17 +74,11 @@ export function Toolbar() {
   return (
     <div className="flex h-12 shrink-0 items-center gap-2 overflow-x-auto border-b border-editor-border bg-editor-panel px-2">
       {/* —— identity —— */}
-      <div className="flex shrink-0 items-baseline gap-2">
+      <div className="flex shrink-0 items-center gap-2">
         <span className="whitespace-nowrap text-xs font-semibold tracking-wide text-amber-400">
           COMPASS STUDIO
         </span>
-        <InlineEditableText
-          value={projectName}
-          onCommit={renameProject}
-          title="Project name — click to rename"
-          className="max-w-[16rem] text-xs text-gray-300"
-          inputClassName="w-48"
-        />
+        <ProjectMenu />
       </div>
 
       <Divider />
@@ -200,9 +174,10 @@ export function Toolbar() {
       <Divider />
 
       <ImportPlanButton />
+      <RentRollButton />
 
       <Button
-        onClick={downloadProjectJson}
+        onClick={() => downloadProject(getEditorState().project)}
         disabled={!allowJson}
         title={
           allowJson

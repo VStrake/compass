@@ -310,6 +310,14 @@ export interface FloorAreaReport {
   coreArea: number;
   /** rentable / gross; 0 when gross is 0. */
   efficiency: number;
+  /**
+   * Whether `efficiency` is a measurement or an artefact. A floor built from a
+   * rent roll has no core or common geometry, so its suites tile the whole plate
+   * and the ratio is 1 by construction — reporting "100% efficient" there would
+   * be false precision. False means the floor has gross area but nothing to
+   * subtract from it; report it as unavailable until a real plan is imported.
+   */
+  efficiencyMeasured: boolean;
   byTenant: { tenantId: TenantId | null; area: number }[];
 }
 

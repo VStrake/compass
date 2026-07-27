@@ -36,6 +36,7 @@ import {
   recomputeElevations,
   DEFAULTS,
 } from '@/core/model/factories';
+import { createSanFelipePlazaProject } from '@/core/model/sanFelipePlaza';
 import {
   newColumnId,
   newCoreId,
@@ -78,6 +79,34 @@ import { createHistory } from './history';
 import { findFloor, selectionExists, type Selection } from './selectors';
 
 export type { Selection };
+
+/**
+ * A one-click starting document. Real buildings ship as seeded generators so a
+ * new user lands on something with tenancy in it rather than an empty plate.
+ * `create` is called lazily — building San Felipe Plaza walks 101 rent-roll rows
+ * and is not worth doing until the user picks it.
+ */
+export interface SampleBuilding {
+  id: string;
+  name: string;
+  subtitle: string;
+  create: () => ProjectDoc;
+}
+
+export const SAMPLE_BUILDINGS: SampleBuilding[] = [
+  {
+    id: 'san-felipe-plaza',
+    name: 'San Felipe Plaza',
+    subtitle: '45 floors · 963,341 RSF · real rent roll · Houston, TX',
+    create: createSanFelipePlazaProject,
+  },
+  {
+    id: 'meridian-tower',
+    name: 'Meridian Tower',
+    subtitle: '12 floors · Class A demo tower · fully furnished',
+    create: createDemoProject,
+  },
+];
 
 export type ActiveTool = 'select' | 'wall' | 'measure';
 export type FloorViewMode = 'stack' | 'explode' | 'solo';

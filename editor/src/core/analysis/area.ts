@@ -109,6 +109,8 @@ export function computeFloorAreaReport(floor: Floor): FloorAreaReport {
     commonArea,
     coreArea,
     efficiency: grossArea > 0 ? rentableArea / grossArea : 0,
+    // Meaningful only when something was actually deducted from the plate.
+    efficiencyMeasured: grossArea > 0 && commonArea + coreArea > 0,
     byTenant: byTenantToArray(tenantAreas),
   };
 }
@@ -139,6 +141,8 @@ export function computeBuildingAreaReport(project: ProjectDoc): BuildingAreaRepo
       commonArea,
       coreArea,
       efficiency: grossArea > 0 ? rentableArea / grossArea : 0,
+      // The building figure is a measurement if any floor contributed one.
+      efficiencyMeasured: floors.some((report) => report.efficiencyMeasured),
       byTenant: byTenantToArray(tenantAreas),
     },
   };

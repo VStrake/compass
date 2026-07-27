@@ -15,7 +15,50 @@ const TOOL_HINT: Record<string, string> = {
   measure: 'click two points to measure · Esc to cancel',
 };
 
-export function StatusBar() {
+/** Autosave lifecycle, owned by `EditorShell` and reported here. */
+export type SaveState = 'idle' | 'saving' | 'saved' | 'error';
+
+export interface SaveStatus {
+  state: SaveState;
+  /** Epoch ms of the last successful autosave, or null. */
+  savedAt: number | null;
+  /** Why the last save failed; shown as the pip's tooltip. */
+  message: string | null;
+}
+
+const TIME_FORMAT = new Intl.DateTimeFormat('en-US', { hour: 'numeric', minute: '2-digit' });
+
+/**
+ * The autosave pip. Deliberately quiet: a save that works needs one glance
+ * ("Saved 2:14 PM"), and a save that cannot work must say so without a modal,
+ * because losing IndexedDB is not a reason to stop editing.
+ */
+function SavePip({ status }: { status: SaveStatus }) {
+  if (status.state === 'idle') return null;
+
+  if (status.state === 'saving') {
+    return <span className="shrink-0 text-gray-500">Saving…</span>;
+  }
+
+  if (status.state === 'error') {
+    return (
+      <span
+        className="shrink-0 text-amber-400/80"
+        title={status.message ?? 'Automatic saving is unavailable in this browser.'}
+      >
+        Not saved ({status.message ?? 'storage unavailable'})
+      </span>
+    );
+  }
+
+  return (
+    <span className="shrink-0 text-gray-400" title="Autosaved to this browser’s local storage">
+      Saved{status.savedAt === null ? '' : ` ${TIME_FORMAT.format(status.savedAt)}`}
+    </span>
+  );
+}
+
+export function StatusBar({ save }: { save?: SaveStatus }) {
   const activeTool = useEditorStore((state) => state.activeTool);
   const selection = useEditorStore((state) => state.selection);
   const drawingWallKind = useEditorStore((state) => state.drawingWallKind);
@@ -41,6 +84,12 @@ export function StatusBar() {
     <div className="flex h-7 shrink-0 items-center gap-2 border-t border-editor-border bg-editor-panel px-2 text-xs text-gray-500">
       <span className="shrink-0 text-gray-300">{toolLabel}</span>
       <span className="min-w-0 flex-1 truncate">{hint}</span>
+      {save && save.state !== 'idle' ? (
+        <>
+          <SavePip status={save} />
+          <span className="shrink-0">·</span>
+        </>
+      ) : null}
       <span className="shrink-0 text-gray-400">{activeFloorName}</span>
       <span className="shrink-0">·</span>
       <span className="shrink-0">

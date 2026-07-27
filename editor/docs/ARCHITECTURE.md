@@ -413,8 +413,18 @@ Three WebGPU realities discovered during verification, all handled in code:
   Underlay-only import stays available when extraction is unavailable.
 - **M1 Openings & cores** — door/window placement tool on walls, core planner
   (elevator bank / stair / restroom blocks), column grids.
-- **M2 Zones & tenancy** — zone drawing tool, tenant manager UI, vacancy/leased
-  color-coding presets, per-tenant stacking diagram.
+- **M2 Real buildings (this branch)** — the portfolio milestone: local project
+  persistence (IndexedDB autosave + `.compass.json` file save/open, so a building
+  can live on SharePoint), rent-roll import (paste from Excel → tenants, suites
+  with `SuiteFacts`, and generated suite-strip plates on floors that have no
+  drawn geometry), a lease-expiry colour mode with rollover buckets shared
+  between the 3D view and a 2D stacking panel, and **San Felipe Plaza** shipped
+  as a seeded sample building built from its real leasing data (see
+  `SAN-FELIPE-PLAZA.md`). Efficiency is reported as unavailable
+  (`efficiencyMeasured: false`) on rent-roll-derived floors, where suites tile
+  the whole plate and the ratio would be 1 by construction.
+- **M2.5 Zones & tenancy tools** — interactive zone drawing tool, tenant manager
+  UI, per-tenant stacking diagram export.
 - **M3 Furniture & layout generators** — full proprietary catalog, drag-drop
   placement, open-plan/private-office/hybrid/hot-desk generators parameterized by
   zone polygon; Class A/B plate templates.

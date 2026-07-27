@@ -17,6 +17,14 @@ import { ColorDot, SectionHeader } from '../primitives';
 
 const VACANT_COLOR = '#4b5563';
 
+/**
+ * Shown instead of a percentage on floors that came from a rent roll: their
+ * suites tile the whole plate, so rentable/gross is 1 by construction rather
+ * than measured. Import a floor plan to get a real number.
+ */
+const NO_EFFICIENCY_HINT =
+  'Efficiency needs core or common area to measure against. This floor came from a rent roll, so its suites fill the whole plate — import its floor plan to get a real figure.';
+
 function Total({ label, value }: { label: string; value: string }) {
   return (
     <div className="flex min-w-0 flex-col">
@@ -65,8 +73,17 @@ export function AreaPanel() {
         </div>
         <div className="flex shrink-0 flex-col items-end">
           <span className="text-[10px] uppercase tracking-wider text-gray-500">Efficiency</span>
-          <span className="font-mono text-xl leading-tight tabular-nums text-amber-400">
-            {formatPercent(totals.efficiency, 1)}
+          <span
+            className={`font-mono text-xl leading-tight tabular-nums ${
+              totals.efficiencyMeasured ? 'text-amber-400' : 'text-gray-600'
+            }`}
+            title={
+              totals.efficiencyMeasured
+                ? undefined
+                : NO_EFFICIENCY_HINT
+            }
+          >
+            {totals.efficiencyMeasured ? formatPercent(totals.efficiency, 1) : '—'}
           </span>
         </div>
       </div>
@@ -97,7 +114,12 @@ export function AreaPanel() {
               <span className="min-w-0 flex-1 truncate font-ui">{meta?.name ?? row.floorId}</span>
               <span className="w-16 text-right">{formatArea(row.grossArea, units)}</span>
               <span className="w-16 text-right">{formatArea(row.rentableArea, units)}</span>
-              <span className="w-10 text-right">{formatPercent(row.efficiency, 0)}</span>
+              <span
+                className={`w-10 text-right ${row.efficiencyMeasured ? '' : 'text-gray-600'}`}
+                title={row.efficiencyMeasured ? undefined : NO_EFFICIENCY_HINT}
+              >
+                {row.efficiencyMeasured ? formatPercent(row.efficiency, 0) : '—'}
+              </span>
             </button>
           );
         })}

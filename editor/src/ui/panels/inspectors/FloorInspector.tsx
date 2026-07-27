@@ -180,7 +180,12 @@ export function FloorInspector({ id }: { id: FloorId }) {
         <InfoRow label="Rentable" value={formatArea(floorReport?.rentableArea ?? 0, units)} />
         <InfoRow label="Common" value={formatArea(floorReport?.commonArea ?? 0, units)} />
         <InfoRow label="Core" value={formatArea(floorReport?.coreArea ?? 0, units)} />
-        <InfoRow label="Efficiency" value={formatPercent(floorReport?.efficiency ?? 0)} />
+        <InfoRow
+          label="Efficiency"
+          value={
+            floorReport?.efficiencyMeasured ? formatPercent(floorReport.efficiency) : '—'
+          }
+        />
       </InspectorSection>
 
       <InspectorSection title="Contents">
