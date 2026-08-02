@@ -1,0 +1,102 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1100" font-family="Arial, Helvetica, sans-serif">
+  <rect width="1600" height="1100" fill="white"/>
+  <!-- title block -->
+  <text x="800" y="60" font-size="34" text-anchor="middle" fill="#111">LEVEL 1 — FLOOR PLAN</text>
+  <text x="800" y="95" font-size="20" text-anchor="middle" fill="#444">1200 Meridian Court — Test Plate</text>
+
+  <!-- building outline: 48m x 30m at 25 px/m -> 1200 x 750, origin (200,180) -->
+  <!-- exterior walls (thick) -->
+  <g stroke="#111" stroke-width="10" fill="none">
+    <rect x="200" y="180" width="1200" height="750"/>
+  </g>
+
+  <!-- core block: x 640..960, y 380..730 -->
+  <g stroke="#111" stroke-width="6" fill="none">
+    <rect x="640" y="380" width="320" height="350"/>
+    <!-- core internal partitions -->
+    <line x1="640" y1="490" x2="960" y2="490"/>
+    <line x1="640" y1="610" x2="960" y2="610"/>
+    <line x1="800" y1="380" x2="800" y2="490"/>
+    <line x1="800" y1="610" x2="800" y2="730"/>
+  </g>
+
+  <!-- demising wall between suites: vertical at x=1050 from top wall to core corridor -->
+  <g stroke="#111" stroke-width="6" fill="none">
+    <line x1="1050" y1="180" x2="1050" y2="930"/>
+  </g>
+  <!-- lobby partition: x=520 vertical from y=180 to y=380, then horizontal to core -->
+  <g stroke="#111" stroke-width="4" fill="none">
+    <line x1="520" y1="180" x2="520" y2="380"/>
+    <line x1="520" y1="380" x2="640" y2="380"/>
+  </g>
+
+  <!-- doors (arcs + gaps drawn as simple door swings) -->
+  <g stroke="#111" stroke-width="2" fill="none">
+    <path d="M 560 930 A 45 45 0 0 1 605 885"/>
+    <line x1="560" y1="930" x2="560" y2="885"/>
+    <path d="M 1150 930 A 45 45 0 0 1 1195 885"/>
+    <line x1="1150" y1="930" x2="1150" y2="885"/>
+    <path d="M 700 380 A 40 40 0 0 1 740 340"/>
+    <line x1="700" y1="380" x2="700" y2="340"/>
+    <path d="M 870 730 A 40 40 0 0 0 830 770"/>
+    <line x1="870" y1="730" x2="870" y2="770"/>
+  </g>
+
+  <!-- windows: ribbon on top wall -->
+  <g stroke="#3b82f6" stroke-width="4">
+    <line x1="240" y1="180" x2="480" y2="180"/>
+    <line x1="560" y1="180" x2="1010" y2="180"/>
+    <line x1="1090" y1="180" x2="1360" y2="180"/>
+  </g>
+
+  <!-- columns: 3x2 grid inside -->
+  <g fill="#111">
+    <rect x="495" y="470" width="16" height="16"/>
+    <rect x="495" y="770" width="16" height="16"/>
+    <rect x="1095" y="470" width="16" height="16"/>
+    <rect x="1095" y="770" width="16" height="16"/>
+    <rect x="795" y="770" width="16" height="16"/>
+    <rect x="795" y="280" width="16" height="16"/>
+  </g>
+
+  <!-- labels -->
+  <text x="360" y="290" font-size="24" fill="#111" text-anchor="middle">LOBBY</text>
+  <text x="360" y="320" font-size="18" fill="#444" text-anchor="middle">1,621 SF</text>
+  <text x="430" y="660" font-size="26" fill="#111" text-anchor="middle">SUITE 100</text>
+  <text x="430" y="692" font-size="20" fill="#444" text-anchor="middle">5,767 RSF</text>
+  <text x="430" y="716" font-size="16" fill="#888" text-anchor="middle">AVAILABLE</text>
+  <text x="1225" y="540" font-size="26" fill="#111" text-anchor="middle">SUITE 110</text>
+  <text x="1225" y="572" font-size="20" fill="#444" text-anchor="middle">3,187 RSF</text>
+  <text x="720" y="440" font-size="15" fill="#111" text-anchor="middle">STAIR A</text>
+  <text x="880" y="440" font-size="15" fill="#111" text-anchor="middle">ELEC.</text>
+  <text x="700" y="555" font-size="15" fill="#111" text-anchor="middle">MEN'S</text>
+  <text x="880" y="555" font-size="15" fill="#111" text-anchor="middle">WOMEN'S</text>
+  <text x="720" y="675" font-size="15" fill="#111" text-anchor="middle">STAIR B</text>
+  <text x="880" y="675" font-size="15" fill="#111" text-anchor="middle">JANITOR</text>
+  <text x="800" y="855" font-size="16" fill="#666" text-anchor="middle">CORRIDOR</text>
+
+  <!-- dimension string: overall width 48.0 m / 157'-6" -->
+  <g stroke="#111" stroke-width="1.5">
+    <line x1="200" y1="990" x2="1400" y2="990"/>
+    <line x1="200" y1="978" x2="200" y2="1002"/>
+    <line x1="1400" y1="978" x2="1400" y2="1002"/>
+  </g>
+  <text x="800" y="1022" font-size="18" text-anchor="middle" fill="#111">157'-6" (48.0 m)</text>
+
+  <!-- graphic scale bar: 10 m = 250 px -->
+  <g>
+    <rect x="200" y="1050" width="62.5" height="10" fill="#111"/>
+    <rect x="262.5" y="1050" width="62.5" height="10" fill="#fff" stroke="#111"/>
+    <rect x="325" y="1050" width="62.5" height="10" fill="#111"/>
+    <rect x="387.5" y="1050" width="62.5" height="10" fill="#fff" stroke="#111"/>
+    <text x="200" y="1080" font-size="14" fill="#111">0</text>
+    <text x="325" y="1080" font-size="14" fill="#111">5 m</text>
+    <text x="450" y="1080" font-size="14" fill="#111">10 m</text>
+  </g>
+  <!-- north arrow -->
+  <g transform="translate(1480,1040)">
+    <circle r="26" fill="none" stroke="#111" stroke-width="2"/>
+    <path d="M 0 -20 L 8 12 L 0 6 L -8 12 Z" fill="#111"/>
+    <text x="0" y="-32" font-size="16" text-anchor="middle" fill="#111">N</text>
+  </g>
+</svg>
