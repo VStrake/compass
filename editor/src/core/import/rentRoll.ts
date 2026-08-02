@@ -35,6 +35,7 @@ import type {
   Floor,
   Polygon,
   ProjectDoc,
+  Slab,
   SuiteFacts,
   Tenant,
   TenantId,
@@ -686,6 +687,15 @@ export function plateOutlineForRsf(rsf: number, aspect = DEFAULT_PLATE_ASPECT): 
   return rect(-width / 2, -depth / 2, width, depth);
 }
 
+/**
+ * A stand-in plate for a floor we only know from the rent roll. Flagged
+ * `schematic` so importing that floor's real plan replaces it rather than
+ * stacking a second plate on top — see `applyExtractionToFloor`.
+ */
+function schematicPlate(rsf: number, aspect: number): Slab {
+  return { ...createSlab(plateOutlineForRsf(rsf, aspect)), schematic: true };
+}
+
 /** Suite number carried by a zone, from its suite facts or its name. */
 function zoneMatchesSuite(zone: Zone, suite: string): boolean {
   if (suite === '') return false;
@@ -895,13 +905,13 @@ export function applyRentRollToProject(
     if (floorTotalRsf <= 0) continue;
 
     if (floor.slabs.length === 0) {
-      floor.slabs.push(createSlab(plateOutlineForRsf(floorTotalRsf, aspect)));
+      floor.slabs.push(schematicPlate(floorTotalRsf, aspect));
     }
     const bounds = plateBounds(floor);
     if (!bounds) {
       // A slab exists but is degenerate — replace it rather than emit zero-area
       // suites, which would poison the area report.
-      floor.slabs = [createSlab(plateOutlineForRsf(floorTotalRsf, aspect))];
+      floor.slabs = [schematicPlate(floorTotalRsf, aspect)];
     }
     const plate = plateBounds(floor) as { x0: number; y0: number; x1: number; y1: number };
 
@@ -924,6 +934,9 @@ export function applyRentRollToProject(
       const name = row.suite !== '' ? `Suite ${row.suite}` : (row.tenantName ?? 'Vacant');
       const zone = createZone(name, 'tenant-suite', outline, tenantIdFor(row.tenantName));
       zone.suite = mergeSuiteFacts(undefined, row);
+      // The tenancy is authoritative; this rectangle is not. Flagged so area
+      // analytics don't quote an efficiency off placeholder suite shapes.
+      zone.schematic = true;
       floor.zones.push(zone);
       result.zonesCreated += 1;
     });

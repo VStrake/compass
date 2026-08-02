@@ -771,6 +771,10 @@ export function applyExtractionToFloor(
   // —— slab: traced footprint first, exterior-wall bounds as the fallback ——
   const slabOutline = importSlabOutline(plan, toPolygon, toPlan);
   if (slabOutline) {
+    // A plate generated from a rent roll is a placeholder for exactly this
+    // drawing. Drop it rather than stack the traced plate on top, which would
+    // double the floor's gross area. Slabs the user drew or traced are kept.
+    floor.slabs = floor.slabs.filter((slab) => slab.schematic !== true);
     floor.slabs.push(createSlab(ensureCCW(slabOutline), [], IMPORT_SLAB_THICKNESS));
     counts.slabs += 1;
   }

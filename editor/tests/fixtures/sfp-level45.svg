@@ -1,0 +1,86 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="950" font-family="Arial, Helvetica, sans-serif">
+  <!--
+    Stand-in for a San Felipe Plaza Control Book occupancy page (Level 45).
+    Proprietary and confidential. © Partners Real Estate.
+
+    The real Control Book is a scanned PDF that cannot be pulled through the
+    SharePoint connector (text extraction only), so this sheet reproduces its
+    geometry at a known scale to verify the import pipeline end to end.
+
+    Drawn at 20 px per metre. Plate is 1040 x 714 px = 52.00 m x 35.70 m
+    = 1856.4 m2 = 19,982 SF, against the rent roll's 19,985 RSF for Level 45.
+  -->
+  <rect width="1400" height="950" fill="white"/>
+
+  <text x="700" y="52" font-size="28" text-anchor="middle" fill="#111">SAN FELIPE PLAZA — LEVEL 45</text>
+  <text x="700" y="80" font-size="17" text-anchor="middle" fill="#555">5847 San Felipe Street, Houston, Texas · High-Rise Express</text>
+
+  <!-- plate: x 180..1220, y 150..864 -->
+  <g stroke="#111" stroke-width="9" fill="none">
+    <rect x="180" y="150" width="1040" height="714"/>
+  </g>
+
+  <!-- central core: 380 x 250 px = 19.0 m x 12.5 m -->
+  <g stroke="#111" stroke-width="5" fill="none">
+    <rect x="510" y="382" width="380" height="250"/>
+    <line x1="510" y1="465" x2="890" y2="465"/>
+    <line x1="510" y1="549" x2="890" y2="549"/>
+    <line x1="700" y1="382" x2="700" y2="465"/>
+    <line x1="700" y1="549" x2="700" y2="632"/>
+  </g>
+  <text x="605" y="430" font-size="14" fill="#111" text-anchor="middle">ELEV. LOBBY</text>
+  <text x="795" y="430" font-size="14" fill="#111" text-anchor="middle">STAIR A</text>
+  <text x="605" y="513" font-size="14" fill="#111" text-anchor="middle">MEN'S</text>
+  <text x="795" y="513" font-size="14" fill="#111" text-anchor="middle">WOMEN'S</text>
+  <text x="605" y="596" font-size="14" fill="#111" text-anchor="middle">MECH.</text>
+  <text x="795" y="596" font-size="14" fill="#111" text-anchor="middle">STAIR B</text>
+
+  <!-- perimeter glazing (curtain wall) -->
+  <g stroke="#3b82f6" stroke-width="4">
+    <line x1="220" y1="150" x2="1180" y2="150"/>
+    <line x1="220" y1="864" x2="1180" y2="864"/>
+    <line x1="180" y1="190" x2="180" y2="824"/>
+    <line x1="1220" y1="190" x2="1220" y2="824"/>
+  </g>
+
+  <!-- structural column grid: 4 x 2 -->
+  <g fill="#111">
+    <rect x="382" y="292" width="15" height="15"/>
+    <rect x="382" y="707" width="15" height="15"/>
+    <rect x="1002" y="292" width="15" height="15"/>
+    <rect x="1002" y="707" width="15" height="15"/>
+    <rect x="692" y="242" width="15" height="15"/>
+    <rect x="692" y="757" width="15" height="15"/>
+  </g>
+
+  <!-- vacancy callout -->
+  <text x="330" y="500" font-size="24" fill="#111" text-anchor="middle">SUITE 4500</text>
+  <text x="330" y="530" font-size="19" fill="#444" text-anchor="middle">19,985 RSF</text>
+  <text x="330" y="556" font-size="15" fill="#888" text-anchor="middle">AVAILABLE — FULL FLOOR</text>
+
+  <!-- overall dimension string: 52.00 m across the plate -->
+  <g stroke="#111" stroke-width="1.5">
+    <line x1="180" y1="900" x2="1220" y2="900"/>
+    <line x1="180" y1="890" x2="180" y2="910"/>
+    <line x1="1220" y1="890" x2="1220" y2="910"/>
+  </g>
+  <text x="700" y="925" font-size="16" text-anchor="middle" fill="#111">170'-7" (52.00 m)</text>
+
+  <!-- graphic scale bar: 10 m = 200 px, drawn from x=180 -->
+  <g>
+    <rect x="180" y="60" width="50" height="9" fill="#111"/>
+    <rect x="230" y="60" width="50" height="9" fill="#fff" stroke="#111"/>
+    <rect x="280" y="60" width="50" height="9" fill="#111"/>
+    <rect x="330" y="60" width="50" height="9" fill="#fff" stroke="#111"/>
+    <text x="180" y="88" font-size="13" fill="#111">0</text>
+    <text x="280" y="88" font-size="13" fill="#111">5 m</text>
+    <text x="380" y="88" font-size="13" fill="#111">10 m</text>
+  </g>
+
+  <!-- north arrow -->
+  <g transform="translate(1300,880)">
+    <circle r="24" fill="none" stroke="#111" stroke-width="2"/>
+    <path d="M 0 -18 L 7 11 L 0 5 L -7 11 Z" fill="#111"/>
+    <text x="0" y="-30" font-size="14" text-anchor="middle" fill="#111">N</text>
+  </g>
+</svg>

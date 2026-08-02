@@ -73,6 +73,8 @@ export function computeFloorAreaReport(floor: Floor): FloorAreaReport {
   let rentableArea = 0;
   let commonArea = 0;
   let coreZoneArea = 0;
+  /** Any leasable area whose shape is a rent-roll placeholder, not real geometry. */
+  let schematicRentable = false;
   const tenantAreas = new Map<TenantId | null, number>();
 
   for (const zone of floor.zones) {
@@ -80,6 +82,7 @@ export function computeFloorAreaReport(floor: Floor): FloorAreaReport {
     switch (zone.kind) {
       case 'tenant-suite':
         rentableArea += area;
+        if (zone.schematic === true) schematicRentable = true;
         tenantAreas.set(zone.tenantId, (tenantAreas.get(zone.tenantId) ?? 0) + area);
         break;
       case 'amenity':
@@ -109,8 +112,10 @@ export function computeFloorAreaReport(floor: Floor): FloorAreaReport {
     commonArea,
     coreArea,
     efficiency: grossArea > 0 ? rentableArea / grossArea : 0,
-    // Meaningful only when something was actually deducted from the plate.
-    efficiencyMeasured: grossArea > 0 && commonArea + coreArea > 0,
+    // Meaningful only when something was deducted from the plate *and* the
+    // leasable areas are real geometry — a schematic suite tiles the whole
+    // plate, so it would report ~100% however much core sits underneath it.
+    efficiencyMeasured: grossArea > 0 && commonArea + coreArea > 0 && !schematicRentable,
     byTenant: byTenantToArray(tenantAreas),
   };
 }

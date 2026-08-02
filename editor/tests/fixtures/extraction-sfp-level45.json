@@ -1,0 +1,119 @@
+{
+  "scale": {
+    "metersPerFrameUnit": 0.07,
+    "basis": "Graphic scale bar: 10 m spans 142.86 frame units (0.0700 m/unit); confirmed by the printed overall dimension 170'-7\" (52.00 m) across the 742.86-unit plate width, which gives the same figure.",
+    "_comment": "1400x950 image, long edge = 1000 frame units, drawn at 20 px/m."
+  },
+  "footprint": [
+    { "x": 128.571, "y": 107.143 },
+    { "x": 871.429, "y": 107.143 },
+    { "x": 871.429, "y": 617.143 },
+    { "x": 128.571, "y": 617.143 }
+  ],
+  "walls": [
+    { "x1": 128.571, "y1": 107.143, "x2": 871.429, "y2": 107.143, "kind": "exterior" },
+    { "x1": 871.429, "y1": 107.143, "x2": 871.429, "y2": 617.143, "kind": "exterior" },
+    { "x1": 871.429, "y1": 617.143, "x2": 128.571, "y2": 617.143, "kind": "exterior" },
+    { "x1": 128.571, "y1": 617.143, "x2": 128.571, "y2": 107.143, "kind": "exterior" },
+    { "x1": 364.286, "y1": 272.857, "x2": 635.714, "y2": 272.857, "kind": "interior" },
+    { "x1": 635.714, "y1": 272.857, "x2": 635.714, "y2": 451.429, "kind": "interior" },
+    { "x1": 635.714, "y1": 451.429, "x2": 364.286, "y2": 451.429, "kind": "interior" },
+    { "x1": 364.286, "y1": 451.429, "x2": 364.286, "y2": 272.857, "kind": "interior" },
+    { "x1": 364.286, "y1": 332.143, "x2": 635.714, "y2": 332.143, "kind": "interior" },
+    { "x1": 364.286, "y1": 392.143, "x2": 635.714, "y2": 392.143, "kind": "interior" },
+    { "x1": 500.0, "y1": 272.857, "x2": 500.0, "y2": 332.143, "kind": "interior" },
+    { "x1": 500.0, "y1": 392.143, "x2": 500.0, "y2": 451.429, "kind": "interior" }
+  ],
+  "zones": [
+    {
+      "name": "CORE",
+      "kind": "core",
+      "outline": [
+        { "x": 364.286, "y": 272.857 },
+        { "x": 635.714, "y": 272.857 },
+        { "x": 635.714, "y": 451.429 },
+        { "x": 364.286, "y": 451.429 }
+      ],
+      "labeledAreaSqft": null
+    }
+  ],
+  "cores": [
+    {
+      "kind": "elevator-bank",
+      "outline": [
+        { "x": 364.286, "y": 272.857 },
+        { "x": 500.0, "y": 272.857 },
+        { "x": 500.0, "y": 332.143 },
+        { "x": 364.286, "y": 332.143 }
+      ],
+      "label": "ELEV. LOBBY"
+    },
+    {
+      "kind": "stair",
+      "outline": [
+        { "x": 500.0, "y": 272.857 },
+        { "x": 635.714, "y": 272.857 },
+        { "x": 635.714, "y": 332.143 },
+        { "x": 500.0, "y": 332.143 }
+      ],
+      "label": "STAIR A"
+    },
+    {
+      "kind": "restroom",
+      "outline": [
+        { "x": 364.286, "y": 332.143 },
+        { "x": 500.0, "y": 332.143 },
+        { "x": 500.0, "y": 392.143 },
+        { "x": 364.286, "y": 392.143 }
+      ],
+      "label": "MEN'S"
+    },
+    {
+      "kind": "restroom",
+      "outline": [
+        { "x": 500.0, "y": 332.143 },
+        { "x": 635.714, "y": 332.143 },
+        { "x": 635.714, "y": 392.143 },
+        { "x": 500.0, "y": 392.143 }
+      ],
+      "label": "WOMEN'S"
+    },
+    {
+      "kind": "mechanical",
+      "outline": [
+        { "x": 364.286, "y": 392.143 },
+        { "x": 500.0, "y": 392.143 },
+        { "x": 500.0, "y": 451.429 },
+        { "x": 364.286, "y": 451.429 }
+      ],
+      "label": "MECH."
+    },
+    {
+      "kind": "stair",
+      "outline": [
+        { "x": 500.0, "y": 392.143 },
+        { "x": 635.714, "y": 392.143 },
+        { "x": 635.714, "y": 451.429 },
+        { "x": 500.0, "y": 451.429 }
+      ],
+      "label": "STAIR B"
+    }
+  ],
+  "openings": [
+    { "wallIndex": 0, "positionRatio": 0.5, "kind": "window", "widthMeters": 45.0 },
+    { "wallIndex": 1, "positionRatio": 0.5, "kind": "window", "widthMeters": 30.0 },
+    { "wallIndex": 2, "positionRatio": 0.5, "kind": "window", "widthMeters": 45.0 },
+    { "wallIndex": 3, "positionRatio": 0.5, "kind": "window", "widthMeters": 30.0 },
+    { "wallIndex": 4, "positionRatio": 0.25, "kind": "double-door", "widthMeters": null },
+    { "wallIndex": 6, "positionRatio": 0.7, "kind": "door", "widthMeters": null }
+  ],
+  "columns": [
+    { "x": 278.21, "y": 213.93 },
+    { "x": 278.21, "y": 510.36 },
+    { "x": 721.07, "y": 213.93 },
+    { "x": 721.07, "y": 510.36 },
+    { "x": 499.64, "y": 178.21 },
+    { "x": 499.64, "y": 546.07 }
+  ],
+  "notes": "Full-floor vacancy. The sheet labels the whole plate SUITE 4500 / 19,985 RSF, but the leasable area is the ring around the core and is not a simple closed polygon on this drawing, so no tenant-suite zone is reported — tenancy for this floor comes from the rent roll. Core is reported both as a zone and as its six constituent rooms."
+}

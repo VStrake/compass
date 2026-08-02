@@ -193,6 +193,13 @@ export interface Slab {
   outline: Polygon;
   holes: Polygon[];
   thickness: number;
+  /**
+   * True for a plate generated from a rent roll rather than drawn or traced
+   * from a plan: a rectangle sized to the floor's RSF, standing in until the
+   * real plan arrives. Importing a plan for the floor replaces it instead of
+   * stacking a second plate on top and double-counting the floor's area.
+   */
+  schematic?: boolean;
 }
 
 export interface Column {
@@ -237,6 +244,13 @@ export interface Zone {
    * schemaVersion 1.
    */
   suite?: SuiteFacts;
+  /**
+   * True for a suite drawn as a proportional strip from a rent roll rather than
+   * traced from a plan. The tenancy is real; the shape is a placeholder that
+   * tiles the whole plate, so it overlaps any core the plan later adds. Area
+   * analytics treat a floor with schematic suites as not efficiency-measurable.
+   */
+  schematic?: boolean;
 }
 
 /** Leasing facts for a suite, sourced from a rent roll rather than geometry. */

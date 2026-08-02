@@ -238,7 +238,9 @@ export function createSanFelipePlazaProject(): ProjectDoc {
     const floor = createFloor(index, 0, height, { name: floorLabel(floorNumber) });
     const rsf = rsfByFloor.get(floorNumber);
     if (rsf !== undefined && rsf > 0) {
-      floor.slabs = [createSlab(plateOutlineForRsf(rsf, PLATE_ASPECT))];
+      // Schematic: a rectangle sized to the floor's RSF, standing in until that
+      // floor's Control Book page is imported — which then replaces it.
+      floor.slabs = [{ ...createSlab(plateOutlineForRsf(rsf, PLATE_ASPECT)), schematic: true }];
     }
     return floor;
   });

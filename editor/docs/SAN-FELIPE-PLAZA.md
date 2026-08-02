@@ -107,3 +107,29 @@ identically whenever it is opened. To refresh from a newer Master Vacancy:
 re-transcribe `tests/fixtures/san-felipe-plaza.rentroll.tsv`, update the embedded
 constant and `SAN_FELIPE_PLAZA_FACTS` in `src/core/model/sanFelipePlaza.ts`, and
 re-run the reconciliation check in the verification steps.
+
+## Importing a Control Book page onto a floor
+
+The rent roll gives every floor a **schematic** plate: a rectangle whose area
+equals that floor's RSF, with each suite drawn as a proportional strip. The
+tenancy is authoritative; the shapes are placeholders. Importing that floor's
+Control Book page replaces the placeholder plate with the traced one — the
+schematic plate is discarded rather than stacked underneath, so gross area does
+not double.
+
+Verified end to end on Level 45 (full-floor vacancy, Suite 4500):
+
+| | Value |
+|---|---|
+| Rent roll | 19,985 RSF |
+| Schematic plate before import | 19,989 SF |
+| Traced plate after import | 19,999 SF (**+0.07%**) |
+
+The floor keeps its rent-roll suites, so tenancy survives the import, and one
+undo reverses the whole thing. Efficiency continues to read "—" until those
+suites are re-drawn from the plan: a schematic suite tiles the entire plate, so
+any percentage would be ~100% no matter how much core sits under it.
+
+`tests/fixtures/sfp-level45.svg` reproduces the Control Book sheet's geometry at
+a known scale (20 px/m, 52.00 m × 35.70 m plate) for this test, since the real
+Control Book is a scanned PDF the SharePoint connector cannot return as an image.
